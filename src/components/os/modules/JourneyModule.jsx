@@ -10,13 +10,13 @@ const JourneyModule = () => {
       active: true
     },
     {
-      year: "2025",
+      year: "2026",
       title: "TECH TEAM MEMBER",
       entity: "FREE AND OPEN SOURCE SOFTWARE CLUB",
       active: false
     },
     {
-      year: "2025",
+      year: "2026",
       title: "TECH TEAM MEMBER",
       entity: "TECHSPACE CLUB",
       active: false
