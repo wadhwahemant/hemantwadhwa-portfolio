@@ -133,41 +133,55 @@ const MissionsModule = () => {
               <span className="text-cyan-500">_</span> Mission Database
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
               {missions.map((mission) => (
                 <div 
                   key={mission.id}
-                  className={`border rounded-xl p-6 relative group overflow-hidden cursor-pointer transition-all duration-300 ${
+                  className={`border rounded-xl p-6 relative group overflow-hidden cursor-pointer transition-all duration-500 ${
                     mission.featured 
-                      ? 'border-cyan-500/50 bg-cyan-950/20 hover:border-cyan-400' 
-                      : 'border-white/10 bg-white/[0.02] hover:border-white/30'
+                      ? 'border-cyan-500/50 bg-cyan-950/20 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]' 
+                      : 'border-white/10 bg-white/[0.02] hover:border-cyan-500/30 hover:bg-white/[0.05]'
                   }`}
                   onClick={() => setActiveMission(mission)}
                 >
-                  <div className={`absolute top-0 right-0 w-16 h-16 opacity-10 translate-x-4 -translate-y-4 transition-transform group-hover:scale-110 ${mission.featured ? 'text-cyan-500' : 'text-white'}`}>
-                    <Crosshair size={64} strokeWidth={1} />
+                  {/* Scanline hover effect */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] pointer-events-none"></div>
+
+                  <div className={`absolute top-0 right-0 w-24 h-24 opacity-10 translate-x-6 -translate-y-6 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12 ${mission.featured ? 'text-cyan-500' : 'text-white'}`}>
+                    <Crosshair size={96} strokeWidth={0.5} />
                   </div>
                   
-                  <div className="text-[10px] text-neutral-500 uppercase tracking-widest mb-4">
-                    {mission.featured ? 'PRIORITY_MISSION' : 'STANDARD_LOG'}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="text-[10px] text-neutral-500 uppercase tracking-widest flex flex-col gap-1">
+                      <span className="text-cyan-500">{mission.featured ? 'PRIORITY_MISSION' : 'STANDARD_LOG'}</span>
+                      <span>STATUS: {mission.status}</span>
+                    </div>
+                    {mission.featured && <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></div>}
                   </div>
                   
-                  <h3 className={`text-2xl font-bold mb-2 ${mission.featured ? 'text-cyan-400' : 'text-white'}`}>
+                  <h3 className={`text-2xl font-bold mb-2 tracking-wide ${mission.featured ? 'text-white group-hover:text-cyan-300' : 'text-white group-hover:text-cyan-300'} transition-colors`}>
                     {mission.title}
                   </h3>
                   <p className="text-xs text-neutral-400 mb-6 truncate">{mission.type}</p>
                   
-                  <button className="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-300 group-hover:text-cyan-400 transition-colors">
-                    [ OPEN MISSION ]
-                  </button>
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex gap-1">
+                      <span className="w-6 h-1 bg-cyan-500/50 rounded-full"></span>
+                      <span className="w-2 h-1 bg-cyan-500/20 rounded-full"></span>
+                      <span className="w-2 h-1 bg-cyan-500/20 rounded-full"></span>
+                    </div>
+                    <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-neutral-400 group-hover:text-cyan-400 transition-colors">
+                      [ INITIALIZE ]
+                    </button>
+                  </div>
                 </div>
               ))}
               
               {/* Coming Soon */}
-              <div className="border border-dashed border-white/20 rounded-xl p-6 flex flex-col items-center justify-center text-center opacity-50">
+              <div className="border border-dashed border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center opacity-40 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.02)_10px,rgba(255,255,255,0.02)_20px)]">
                 <div className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2">AWAITING_DEPLOYMENT</div>
-                <h3 className="text-lg font-bold text-neutral-400 mb-2">UNKNOWN DIRECTIVE</h3>
-                <p className="text-xs text-neutral-500">New full-stack architecture currently in development.</p>
+                <h3 className="text-lg font-bold text-neutral-400 mb-2">CLASSIFIED DIRECTIVE</h3>
+                <p className="text-xs text-neutral-500">New system architecture currently in development.</p>
               </div>
             </div>
           </motion.div>
