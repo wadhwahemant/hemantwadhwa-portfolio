@@ -24,38 +24,47 @@ const OsInterface = () => {
 
   return (
     <motion.div 
-      className="absolute inset-0 z-10 flex p-2 md:p-6 gap-6 h-screen overflow-hidden"
+      className="absolute inset-0 z-10 flex flex-col md:flex-row p-2 md:p-6 gap-2 md:gap-6 h-[100dvh] overflow-hidden"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Sidebar HUD */}
-      <aside className="w-20 md:w-64 h-full bg-[#050508]/90 backdrop-blur-xl border border-cyan-500/10 rounded-2xl flex flex-col items-center md:items-stretch py-6 shrink-0 relative overflow-hidden shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-20">
+      <aside className="w-full md:w-64 h-auto md:h-full bg-[#050508]/90 backdrop-blur-xl border border-cyan-500/10 rounded-2xl flex flex-col items-center md:items-stretch py-4 md:py-6 shrink-0 relative overflow-hidden shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-20">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
         
         {/* Operator Profile */}
-        <div className="flex flex-col items-center mb-10 px-4 group cursor-default">
-          <div className="relative w-12 h-12 md:w-32 md:h-32 rounded-full mb-4 p-2">
-            {/* Interactive High-Tech Shield/Scanner */}
-            <div className="absolute inset-0 rounded-full border border-cyan-500/10 group-hover:border-cyan-400/30 transition-colors duration-500"></div>
-            
-            <div className="absolute inset-0 rounded-full border border-dashed border-cyan-500/20 animate-[spin_10s_linear_infinite] group-hover:border-cyan-400/50 group-hover:animate-[spin_4s_linear_infinite] transition-colors"></div>
-            
-            <svg className="absolute inset-[-10px] w-[calc(100%+20px)] h-[calc(100%+20px)] animate-[spin_8s_linear_infinite_reverse] opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(6,182,212,0.4)" strokeWidth="1" strokeDasharray="10 30" />
-              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(6,182,212,0.2)" strokeWidth="0.5" strokeDasharray="5 15" />
-            </svg>
+        <div className="flex flex-row md:flex-col items-center justify-between md:justify-start w-full md:w-auto mb-4 md:mb-10 px-4 group cursor-default">
+          <div className="flex items-center gap-4">
+            <div className="relative w-14 h-14 md:w-32 md:h-32 rounded-full md:mb-4 p-1.5 md:p-2 shrink-0">
+              {/* Interactive High-Tech Shield/Scanner */}
+              <div className="absolute inset-0 rounded-full border border-cyan-500/10 group-hover:border-cyan-400/30 transition-colors duration-500"></div>
+              
+              <div className="absolute inset-0 rounded-full border border-dashed border-cyan-500/20 animate-[spin_10s_linear_infinite] group-hover:border-cyan-400/50 group-hover:animate-[spin_4s_linear_infinite] transition-colors"></div>
+              
+              <svg className="absolute inset-[-10px] w-[calc(100%+20px)] h-[calc(100%+20px)] animate-[spin_8s_linear_infinite_reverse] opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(6,182,212,0.4)" strokeWidth="1" strokeDasharray="10 30" />
+                <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(6,182,212,0.2)" strokeWidth="0.5" strokeDasharray="5 15" />
+              </svg>
 
-            {/* Radar scanner line */}
-            <div className="absolute inset-1 rounded-full overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="w-[50%] h-[50%] origin-bottom-right bg-gradient-to-br from-cyan-500/0 to-cyan-400/40 animate-[spin_2s_linear_infinite]"></div>
+              {/* Radar scanner line */}
+              <div className="absolute inset-1 rounded-full overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-[50%] h-[50%] origin-bottom-right bg-gradient-to-br from-cyan-500/0 to-cyan-400/40 animate-[spin_2s_linear_infinite]"></div>
+              </div>
+
+              {/* The user's actual photo */}
+              <div className="relative w-full h-full bg-neutral-900 rounded-full overflow-hidden flex items-center justify-center border-2 border-cyan-500/30 group-hover:border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] z-10 transition-all duration-500">
+                {/* Photo is now fully colored */}
+                <img src="/photo.jpg" alt="Hemant Wadhwa" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onError={(e) => { e.target.style.display='none' }} />
+                <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay group-hover:opacity-0 transition-opacity"></div>
+              </div>
             </div>
-
-            {/* The user's actual photo */}
-            <div className="relative w-full h-full bg-neutral-900 rounded-full overflow-hidden flex items-center justify-center border-2 border-cyan-500/30 group-hover:border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] z-10 transition-all duration-500">
-              {/* Photo is now fully colored */}
-              <img src="/photo.jpg" alt="Hemant Wadhwa" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onError={(e) => { e.target.style.display='none' }} />
-              <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay group-hover:opacity-0 transition-opacity"></div>
+            <div className="flex md:hidden flex-col items-start">
+              <h2 className="text-white font-display font-bold tracking-widest text-sm group-hover:text-cyan-300 transition-colors">HEMANT.OS</h2>
+              <div className="flex items-center gap-1.5 mt-1 bg-cyan-950/30 px-2 py-0.5 rounded-full border border-cyan-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                <span className="text-[9px] text-cyan-400 font-mono tracking-widest uppercase">SYS_ONLINE</span>
+              </div>
             </div>
           </div>
           <div className="hidden md:flex flex-col items-center text-center">
@@ -68,12 +77,12 @@ const OsInterface = () => {
         </div>
 
         {/* Navigation Nodes */}
-        <nav className="flex flex-col gap-2 w-full px-2 md:px-4 flex-grow z-10">
+        <nav className="flex flex-row md:flex-col gap-2 w-full px-2 md:px-4 md:flex-grow overflow-x-auto scrollbar-hide z-10 pb-2 md:pb-0">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveModule(item.id)}
-              className={`group relative flex items-center gap-3 p-3 md:px-4 rounded-xl transition-all duration-300 font-mono text-xs md:text-sm tracking-widest overflow-hidden ${
+              className={`group relative flex items-center justify-center md:justify-start gap-2 md:gap-3 px-4 py-2.5 md:p-3 md:px-4 rounded-xl transition-all duration-300 font-mono text-[10px] md:text-sm tracking-widest overflow-hidden shrink-0 ${
                 activeModule === item.id 
                   ? 'bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 shadow-[inset_0_0_20px_rgba(6,182,212,0.1)]' 
                   : 'text-neutral-500 hover:text-cyan-100 hover:bg-white/[0.02] border border-transparent hover:border-white/5'
@@ -96,14 +105,14 @@ const OsInterface = () => {
         </nav>
 
         {/* Terminal Toggle */}
-        <div className="px-2 md:px-4 mt-auto pb-4">
+        <div className="hidden md:block px-4 mt-auto pb-4">
           <button 
             onClick={() => setTerminalOpen(!terminalOpen)}
-            className="group w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl border border-white/5 bg-[#030305] text-neutral-500 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300 overflow-hidden relative"
+            className="group w-full flex items-center justify-start gap-3 p-3 rounded-xl border border-white/5 bg-[#030305] text-neutral-500 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300 overflow-hidden relative"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 -translate-x-full group-hover:animate-[scan_2s_ease-in-out_infinite]"></div>
             <TerminalIcon size={18} className="group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] relative z-10" />
-            <span className="hidden md:block font-mono text-xs tracking-widest relative z-10">SYS_TERMINAL</span>
+            <span className="font-mono text-xs tracking-widest relative z-10">SYS_TERMINAL</span>
           </button>
         </div>
       </aside>
@@ -118,7 +127,7 @@ const OsInterface = () => {
         </header>
 
         {/* Module Content */}
-        <div className="flex-grow overflow-y-auto p-6 md:p-10 scrollbar-hide relative z-10 pr-8 md:pr-32">
+        <div className="flex-grow overflow-y-auto p-4 md:p-10 scrollbar-hide relative z-10 pr-4 md:pr-32">
           <AnimatePresence mode="wait">
             {activeModule === 'IDENTITY' && <IdentityModule key="identity" />}
             {activeModule === 'SKILLS' && <TechTreeModule key="skills" />}
@@ -129,7 +138,7 @@ const OsInterface = () => {
         </div>
 
         {/* Interactive Right-Side Telemetry (Blue Dots) */}
-        <div className="absolute top-0 right-0 w-24 md:w-32 h-full border-l border-cyan-500/5 bg-gradient-to-l from-cyan-950/10 to-transparent pointer-events-none opacity-50 group-hover/main:opacity-100 transition-opacity duration-700 flex flex-col items-center justify-around py-20 z-0">
+        <div className="hidden md:flex absolute top-0 right-0 w-24 md:w-32 h-full border-l border-cyan-500/5 bg-gradient-to-l from-cyan-950/10 to-transparent pointer-events-none opacity-50 group-hover/main:opacity-100 transition-opacity duration-700 flex-col items-center justify-around py-20 z-0">
           {/* Vertical connection line */}
           <div className="absolute top-0 bottom-0 right-1/2 w-px bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"></div>
           

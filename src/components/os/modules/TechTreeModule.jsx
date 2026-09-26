@@ -6,14 +6,14 @@ const TechTreeModule = () => {
   const [activeNode, setActiveNode] = useState(null);
 
   const skills = [
-    { id: 'cpp', label: 'C++ (DSA)', category: 'core', desc: 'Primary language for Data Structures and problem solving.', icon: <Code2 size={16} /> },
-    { id: 'c', label: 'C', category: 'core', desc: 'Low-level foundations and memory management.', icon: <Cpu size={16} /> },
-    { id: 'python', label: 'Python', category: 'core', desc: 'Scripting and early AI/ML exploration.', icon: <TerminalSquare size={16} /> },
-    { id: 'js', label: 'JavaScript', category: 'web', desc: 'Interactive frontend logic and full-stack capabilities.', icon: <FileCode size={16} /> },
-    { id: 'htmlcss', label: 'HTML/CSS', category: 'web', desc: 'Structural markup and modern styling architectures.', icon: <Globe size={16} /> },
-    { id: 'react', label: 'React.js', category: 'web', desc: 'Component-based UI development and state management.', icon: <Layers size={16} /> },
-    { id: 'mysql', label: 'MySQL', category: 'data', desc: 'Relational database design and queries.', icon: <Database size={16} /> },
-    { id: 'git', label: 'Git/GitHub', category: 'tools', desc: 'Version control and collaborative workflow.', icon: <GitBranch size={16} /> },
+    { id: 'cpp', label: 'C++ (DSA)', category: 'core', desc: 'Primary language for Data Structures and problem solving.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="C++" /> },
+    { id: 'c', label: 'C', category: 'core', desc: 'Low-level foundations and memory management.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="C" /> },
+    { id: 'python', label: 'Python', category: 'core', desc: 'Scripting and early AI/ML exploration.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="Python" /> },
+    { id: 'js', label: 'JavaScript', category: 'web', desc: 'Interactive frontend logic and full-stack capabilities.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="JavaScript" /> },
+    { id: 'htmlcss', label: 'HTML/CSS', category: 'web', desc: 'Structural markup and modern styling architectures.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="HTML/CSS" /> },
+    { id: 'react', label: 'React.js', category: 'web', desc: 'Component-based UI development and state management.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="React" /> },
+    { id: 'mysql', label: 'MySQL', category: 'data', desc: 'Relational database design and queries.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="MySQL" /> },
+    { id: 'git', label: 'Git/GitHub', category: 'tools', desc: 'Version control and collaborative workflow.', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" className="w-6 h-6 group-hover:scale-110 transition-transform" alt="Git" /> },
   ];
 
   return (
@@ -35,7 +35,7 @@ const TechTreeModule = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.05)_1px,transparent_1px)]" style={{ backgroundSize: '20px 20px' }}></div>
           
           {/* SVG Connection Lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+          <svg className="hidden md:block absolute inset-0 w-full h-full pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity duration-500">
             <path d="M 50% 20% L 30% 50% M 50% 20% L 50% 50% M 50% 20% L 70% 50% M 30% 50% L 30% 80% M 70% 50% L 70% 80%" stroke="cyan" strokeWidth="1" fill="none" strokeDasharray="4 4" className="animate-pulse" />
           </svg>
 
