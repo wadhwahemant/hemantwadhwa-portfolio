@@ -44,7 +44,7 @@ export default async function handler(req) {
     const MAX_HISTORY = parseInt(process.env.H01_MAX_MESSAGES || '20');
     let safeMessages = messages.slice(-MAX_HISTORY);
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = (process.env.GEMINI_API_KEY || '').trim();
     if (!apiKey) {
       return new Response(JSON.stringify({ 
         error: 'AI is currently offline. GEMINI_API_KEY is not configured on the server.' 
@@ -57,7 +57,7 @@ export default async function handler(req) {
       parts: [{ text: (msg.content || '').slice(0, 1000) }] // Max 1000 chars per message
     }));
 
-    const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+    const model = (process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest').trim();
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`, {
       method: 'POST',
       headers: {

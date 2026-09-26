@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
             req.on('end', async () => {
               try {
                 const { messages } = JSON.parse(body);
-                const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+                const apiKey = (env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || '').trim();
 
               if (!apiKey || apiKey === 'your_gemini_api_key_here') {
                 // Mock stream for testing without an API key
@@ -84,7 +84,7 @@ export default defineConfig(({ mode }) => {
                 parts: [{ text: (msg.content || '').slice(0, 1000) }]
               }));
 
-              const model = env.GEMINI_MODEL || process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+              const model = (env.GEMINI_MODEL || process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest').trim();
               const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
