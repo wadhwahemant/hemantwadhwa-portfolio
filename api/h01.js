@@ -57,7 +57,7 @@ export default async function handler(req) {
       parts: [{ text: (msg.content || '').slice(0, 1000) }] // Max 1000 chars per message
     }));
 
-    const model = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest';
+    const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`, {
       method: 'POST',
       headers: {
@@ -78,7 +78,18 @@ export default async function handler(req) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Gemini API Error:', errorText);
-      return new Response(JSON.stringify({ error: 'Failed to communicate with Neural Network.' }), { status: 500 });
+      
+      let errorReason = 'Failed to communicate with Neural Network.';
+      if (response.status === 400) errorReason = 'Invalid request to Gemini API. Check payload format.';
+      if (response.status === 401 || response.status === 403) errorReason = 'Invalid Gemini API Key.';
+      if (response.status === 404) errorReason = `Invalid model: ${model} not found.`;
+      if (response.status === 429) errorReason = 'Rate limit exceeded for Gemini API.';
+      if (response.status >= 500) errorReason = 'Gemini API is experiencing internal server issues.';
+
+      return new Response(JSON.stringify({ 
+        error: errorReason,
+        details: process.env.NODE_ENV === 'development' ? errorText : undefined
+      }), { status: response.status });
     }
 
     // Pipe the Server-Sent Events stream directly to the client

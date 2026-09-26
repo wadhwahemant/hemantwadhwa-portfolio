@@ -36,7 +36,7 @@ export default defineConfig(({ mode }) => {
       {
         name: 'local-api',
         configureServer(server) {
-          server.middlewares.use('/api/chat', async (req, res) => {
+          server.middlewares.use('/api/h01', async (req, res) => {
             if (req.method !== 'POST') {
               res.statusCode = 405;
               res.end('Method Not Allowed');
@@ -84,7 +84,7 @@ export default defineConfig(({ mode }) => {
                 parts: [{ text: (msg.content || '').slice(0, 1000) }]
               }));
 
-              const model = env.GEMINI_MODEL || process.env.GEMINI_MODEL || 'gemini-flash-lite-latest';
+              const model = env.GEMINI_MODEL || process.env.GEMINI_MODEL || 'gemini-1.5-flash';
               const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -98,8 +98,19 @@ export default defineConfig(({ mode }) => {
               if (!response.ok) {
                 const errText = await response.text();
                 console.error("Gemini API Error:", errText);
-                res.statusCode = 500;
-                res.end(JSON.stringify({ error: "Failed to communicate with Neural Network. Check your API Key." }));
+                
+                let errorReason = 'Failed to communicate with Neural Network.';
+                if (response.status === 400) errorReason = 'Invalid request to Gemini API. Check payload format.';
+                if (response.status === 401 || response.status === 403) errorReason = 'Invalid Gemini API Key.';
+                if (response.status === 404) errorReason = `Invalid model: ${model} not found.`;
+                if (response.status === 429) errorReason = 'Rate limit exceeded for Gemini API.';
+                if (response.status >= 500) errorReason = 'Gemini API is experiencing internal server issues.';
+
+                res.statusCode = response.status;
+                res.end(JSON.stringify({ 
+                  error: errorReason,
+                  details: process.env.NODE_ENV === 'development' ? errText : undefined
+                }));
                 return;
               }
 

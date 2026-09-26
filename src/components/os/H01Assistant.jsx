@@ -35,17 +35,24 @@ const H01Assistant = () => {
       // Filter out the welcome message for the API
       const apiMessages = newMessages.filter(m => !m.isWelcome);
 
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/api/h01', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: apiMessages })
       });
 
       if (!response.ok) {
-        if (response.status === 429) {
+        let serverError = 'H-01 temporarily lost connection to the neural network. Please try again.';
+        try {
+          const errData = await response.json();
+          if (errData.error) serverError = errData.error;
+        } catch(e) {
+          if (response.status === 404) serverError = 'API route not found. Ensure backend is deployed at /api/h01.';
+        }
+        if (response.status === 429 && serverError === 'H-01 temporarily lost connection to the neural network. Please try again.') {
            throw new Error("H-01 has reached today's public capacity. The system will be available again soon.");
         }
-        throw new Error('H-01 temporarily lost connection to the neural network. Please try again.');
+        throw new Error(serverError);
       }
 
       const reader = response.body.getReader();
